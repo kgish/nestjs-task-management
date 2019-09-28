@@ -1,8 +1,12 @@
-export type Status = 'open' | 'in_progress' | 'done';
+export enum TaskStatus {
+  OPEN = 'OPEN',
+  IN_PROGRESS = 'IN_PROGRESS',
+  DONE = 'DONE',
+}
 
 export interface Task {
   id: string;
   title: string;
   description: string;
-  status: Status;
+  status: TaskStatus;
 }
