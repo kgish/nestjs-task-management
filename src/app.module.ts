@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TasksModule } from './tasks/tasks.module';
-import { TypeOrmCoreModule } from '@nestjs/typeorm/dist/typeorm-core.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
-    TypeOrmCoreModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forRoot(typeOrmConfig),
     TasksModule,
   ],
 })
