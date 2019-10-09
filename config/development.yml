@@ -1,0 +1,8 @@
+db:
+  host: localhost
+  username: 'taskmanagement'
+  password: 'taskmanagement'
+  synchronize: true
+
+jwt:
+  secret: 'super-duper-top-secret-567'
