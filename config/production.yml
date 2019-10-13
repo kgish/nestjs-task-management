@@ -1,0 +1,5 @@
+db:
+  synchronized: false
+
+server:
+  origin: '{{ENABLE_CORS_SERVER_ORIGIN}}'
