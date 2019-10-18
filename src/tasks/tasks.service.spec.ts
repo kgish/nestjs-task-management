@@ -72,9 +72,6 @@ describe('TaskService', () => {
       expect(taskRepository.createTask).toHaveBeenCalledWith(createTaskDTO, mockUser);
       expect(result).toEqual('someValue');
     });
-
-    it('throws as error if task not found', () => {
-    });
   });
 
   describe('deleteTask', () => {
@@ -89,6 +86,24 @@ describe('TaskService', () => {
     it('throws as error if task not found', () => {
       taskRepository.delete.mockResolvedValue({ affected: 0 });
       expect(tasksService.deleteTask(1, mockUser)).rejects.toThrow(NotFoundException);
+    });
+  });
+
+  describe('updateTaskStatus', () => {
+
+    it('updates task status', async () => {
+      const save = jest.fn().mockResolvedValue(true);
+
+      tasksService.getTaskById = jest.fn().mockResolvedValue({
+        status: TaskStatus.OPEN,
+        save,
+      });
+
+      expect(tasksService.getTaskById).not.toHaveBeenCalled();
+      const result = await tasksService.updateTaskStatus(1, TaskStatus.DONE);
+      expect(tasksService.getTaskById).toHaveBeenCalled();
+      expect(save).toHaveBeenCalled();
+      expect(result.status).toEqual(TaskStatus.DONE);
     });
   });
 });
