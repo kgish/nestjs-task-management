@@ -14,6 +14,7 @@ describe('TaskService', () => {
   const mockTaskRepository = () => ({
     getTasks: jest.fn(),
     findOne: jest.fn(),
+    createTask: jest.fn(),
   });
 
   beforeEach(async () => {
@@ -29,7 +30,7 @@ describe('TaskService', () => {
   });
 
   describe('getTasks', () => {
-    it('gets all tasks from repositry', async () => {
+    it('gets all tasks from repository', async () => {
       taskRepository.getTasks.mockResolvedValue('someValue');
 
       expect(taskRepository.getTasks).not.toHaveBeenCalled();
@@ -43,7 +44,6 @@ describe('TaskService', () => {
   });
 
   describe('getTasksById', () => {
-
     it('calls taskRepository.findOne() and successfully retrieve and return the task', async () => {
       const mockTask = {title: 'Test task', description: 'Task description'};
       taskRepository.findOne.mockResolvedValue(mockTask);
@@ -58,6 +58,21 @@ describe('TaskService', () => {
     it('throws as error if task not found', () => {
       taskRepository.findOne.mockResolvedValue(null);
       expect(tasksService.getTaskById(1, mockUser)).rejects.toThrow(NotFoundException);
+    });
+  });
+
+  describe('createTask', () => {
+
+    it('calls taskRepository.create() and returns the result',  async () => {
+      const createTaskDTO = {title: 'Task title', description: 'Task description'};
+      taskRepository.createTask.mockResolvedValue('someValue');
+      expect(taskRepository.createTask).not.toHaveBeenCalled();
+      const result = await tasksService.createTask(createTaskDTO, mockUser);
+      expect(taskRepository.createTask).toHaveBeenCalledWith(createTaskDTO, mockUser);
+      expect(result).toEqual('someValue');
+    });
+
+    it('throws as error if task not found', () => {
     });
   });
 });
