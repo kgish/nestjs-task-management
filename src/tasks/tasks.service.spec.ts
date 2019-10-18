@@ -15,6 +15,7 @@ describe('TaskService', () => {
     getTasks: jest.fn(),
     findOne: jest.fn(),
     createTask: jest.fn(),
+    delete: jest.fn(),
   });
 
   beforeEach(async () => {
@@ -45,13 +46,13 @@ describe('TaskService', () => {
 
   describe('getTasksById', () => {
     it('calls taskRepository.findOne() and successfully retrieve and return the task', async () => {
-      const mockTask = {title: 'Test task', description: 'Task description'};
+      const mockTask = { title: 'Test task', description: 'Task description' };
       taskRepository.findOne.mockResolvedValue(mockTask);
 
       const result = await tasksService.getTaskById(1, mockUser);
       expect(result).toEqual(mockTask);
 
-      expect(taskRepository.findOne).toHaveBeenCalledWith({ where: {id: 1, userId: mockUser.id }})
+      expect(taskRepository.findOne).toHaveBeenCalledWith({ where: { id: 1, userId: mockUser.id } });
 
     });
 
@@ -63,8 +64,8 @@ describe('TaskService', () => {
 
   describe('createTask', () => {
 
-    it('calls taskRepository.create() and returns the result',  async () => {
-      const createTaskDTO = {title: 'Task title', description: 'Task description'};
+    it('calls taskRepository.createTask() and returns the result', async () => {
+      const createTaskDTO = { title: 'Task title', description: 'Task description' };
       taskRepository.createTask.mockResolvedValue('someValue');
       expect(taskRepository.createTask).not.toHaveBeenCalled();
       const result = await tasksService.createTask(createTaskDTO, mockUser);
@@ -73,6 +74,21 @@ describe('TaskService', () => {
     });
 
     it('throws as error if task not found', () => {
+    });
+  });
+
+  describe('deleteTask', () => {
+
+    it('calls taskRepository.deleteTask() and returns the result', async () => {
+      taskRepository.delete.mockResolvedValue({ affected: 1 });
+      expect(taskRepository.delete).not.toHaveBeenCalled();
+      await tasksService.deleteTask(1, mockUser);
+      expect(taskRepository.delete).toHaveBeenCalledWith({ id: 1, userId: mockUser.id });
+    });
+
+    it('throws as error if task not found', () => {
+      taskRepository.delete.mockResolvedValue({ affected: 0 });
+      expect(tasksService.deleteTask(1, mockUser)).rejects.toThrow(NotFoundException);
     });
   });
 });
