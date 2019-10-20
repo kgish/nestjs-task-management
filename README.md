@@ -36,6 +36,16 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Development
+
+During development start up the postgres container and run test in watch mode:
+
+```
+$ docker-compose up -d
+$ npm run test:watch
+$ npm run start:dev
+```
+
 ## References
 
 * [NestJS](https://nestjs.com)
