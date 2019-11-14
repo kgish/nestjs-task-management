@@ -1,8 +1,8 @@
 db:
   host: localhost
-  username: 'taskmanagement'
-  password: 'taskmanagement'
+  username: 'viriciti'
+  password: 'viriciti'
   synchronize: true
 
 jwt:
-  secret: 'super-duper-top-secret-567'
+  secret: 'viriciti'
