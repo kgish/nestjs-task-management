@@ -45,6 +45,7 @@
     "@types/node": "^12.7.5",
     "@types/passport-jwt": "^3.0.2",
     "@types/supertest": "^2.0.8",
+    "@types/underscore": "^1.9.3",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "supertest": "^4.0.2",
@@ -54,7 +55,8 @@
     "tsc-watch": "^4.0.0",
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "underscore": "^1.9.1"
   },
   "jest": {
     "moduleFileExtensions": [
